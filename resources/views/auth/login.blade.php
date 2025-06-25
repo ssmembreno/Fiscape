@@ -1,6 +1,6 @@
-@extends('_layouts.layout')
+@extends('_layouts.Auth_layout')
 
-@section('content')
+@section('login')
 
     <form action="{{url('/login')}}" method="POST">
     @csrf

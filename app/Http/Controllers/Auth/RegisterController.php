@@ -28,6 +28,6 @@ class RegisterController extends Controller
 
         auth()->login($user);
 
-        return response()->json(['message' => 'Registrado correctamente']);
+        return redirect()->intended('/dashboard');
     }
 }

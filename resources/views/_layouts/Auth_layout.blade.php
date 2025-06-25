@@ -8,16 +8,7 @@
     <title>Document</title>
 </head>
 <body>
-    <h1 class="text-3xl">FISCAPE</h1>
-
-    <button class="bg-orange-100">
-        <h2><a href="{{route('login')}}">Login</a></h2>
-    </button>
-
-    <button class="bg-orange-300">
-        <h2 ><a href="{{ route('register') }}">Registrarse</a></h2>
-    </button>
+    @yield('login')
+    @yield('register')
 </body>
 </html>
-
-

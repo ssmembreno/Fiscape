@@ -10,14 +10,20 @@ Route::get('/', function () {
 
 
 // Login
-Route::get('/login',[AuthController::class, 'showLoginForm'])->name('login');
-Route::post('/login',[AuthController::class, 'login']);
+
+    Route::post('/login', [AuthController::class, 'Login']);
+    Route::get('/login',[AuthController::class, 'showLoginForm'])->name('login');
+    
+    Route::post('/register', [RegisterController::class, 'UserRegister']);
+    Route::get('/register' , [RegisterController::class , 'showRegistrationForm'])->name('register');
+
 Route::post('/logout',[AuthController::class, 'logout'])->name('logout');
-
-Route::get('/register' , [RegisterController::class , 'showRegistrationForm'])->name('register');
-Route::post('/register', [RegisterController::class, 'UserRegister']);
-
 
 Route::get('/dashboard', function(){
     return view('dashboard');
 })->middleware('auth');
+
+
+Route::get('/csrf-token', function () {
+    return response()->json(['csrf_token' => csrf_token()]);
+});
