@@ -1,4 +1,3 @@
-<!-- resources/js/components/AddIncome.vue -->
 <template>
   <form @submit.prevent="submitTransaction">
     <input v-model="form.amount" type="number" step="0.01" placeholder="Cantidad" required />
@@ -18,6 +17,8 @@
 import { ref, onMounted } from 'vue'
 import api from '@/axios'
 
+const emit = defineEmits(['refreshBalance']) // 👈 para notificar al padre
+
 const form = ref({
   amount: '',
   description: '',
@@ -31,18 +32,25 @@ const submitTransaction = async () => {
   try {
     await api.post('/transactions', form.value)
     alert('Ingreso añadido correctamente')
-    // aquí podrías emitir un evento o limpiar el form
+
+    // limpiar formulario
+    form.value = {
+      amount: '',
+      description: '',
+      transaction_date: '',
+      category_id: ''
+    }
+
+    emit('refreshBalance') // 👈 notifica al componente padre
   } catch (error) {
-    alert('Error al guardar: ' + error.response.data.message)
+    alert('Error al guardar: ' + error.response?.data?.message || error.message)
   }
 }
-
 
 const fetchCategories = async () => {
   try {
     const res = await api.get('/categories') 
     categories.value = res.data
-    console.log('categorías cargadas:', res.data)
   } catch (err) {
     console.error('Error cargando categorías', err)
   }

@@ -19,6 +19,8 @@ class AuthController extends Controller
             $request->session()->regenerate();
             return redirect()->intended('/dashboard');
         }
+
+
         return back()->withErrors([
             'email' => 'Credenciales incorrectas.',
         ]);

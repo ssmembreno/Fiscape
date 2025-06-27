@@ -22,32 +22,29 @@
 
 <script setup>
 import { ref, onMounted } from 'vue'
-import api from '@/axios'
-import {initCsrf} from '@/utils/csrf'
+import api from '@/axios' 
 
-// Balance actual
 const balance = ref(0)
 const change = ref(null)
 
+const formatCurrency = (value) => {
+  const number = Number(value)
+  if (isNaN(number)) return '€0.00'
+  return new Intl.NumberFormat('es-ES', { style: 'currency', currency: 'EUR' }).format(number)
+}
+
 const fetchBalance = async () => {
   try {
-    const res = await api.get('/balance')
-    balance.value = res.data.balance
-    change.value = res.data.change ?? null
+    const response = await api.get('/balance')
+    balance.value = response.data.balance
+    change.value = response.data.change
+    console.log('balance response:', response.data)
   } catch (error) {
-    console.error('Error al cargar balance', error)
+    console.error('Error al cargar el balance:', error)
   }
 }
 
-const formatCurrency = (amount) => {
-  return new Intl.NumberFormat('es-ES', {
-    style: 'currency',
-    currency: 'EUR'
-  }).format(amount)
-}
-
-onMounted(async() => {
-  await initCsrf();
+onMounted(() => {
   fetchBalance()
 })
 </script>

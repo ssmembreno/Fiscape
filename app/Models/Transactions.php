@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory; 
 
 class Transactions extends Model
 {
@@ -18,9 +19,9 @@ class Transactions extends Model
     ];
 
     protected $casts = [
-        'amount' => 'encrypted:float',
+        'amount' => 'encrypted',
         'description' => 'encrypted',
-        'transaction_date' => 'date',
+        'transaction_date' => 'encrypted:date',
     ];
 
     public function user()
