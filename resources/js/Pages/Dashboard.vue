@@ -65,7 +65,7 @@ function pct(used, limit) {
 
           <!-- Gestión -->
           <div>
-            <p class="px-2 mb-2 text-gray-500 uppercase tracking-wider text-xs">Gestión</p>
+            <p class="px-2 mb-2 text-gray-500 uppercase tracking-wider text-xs">Gestiónes</p>
             <ul class="space-y-1">
               <li><a class="flex items-center gap-2 px-3 py-2 rounded-md hover:bg-gray-100">🏷️ Categorías</a></li>
               <li><a class="flex items-center gap-2 px-3 py-2 rounded-md hover:bg-gray-100">🔁 Recurrentes</a></li>
