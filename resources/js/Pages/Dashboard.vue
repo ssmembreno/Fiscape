@@ -57,7 +57,13 @@ function pct(used, limit) {
             <p class="px-2 mb-2 text-gray-500 uppercase tracking-wider text-xs">Main</p>
             <ul class="space-y-1">
               <li><a class="flex items-center gap-2 px-3 py-2 rounded-md bg-gray-100 font-medium">🏠 Dashboard</a></li>
-              <li><a class="flex items-center gap-2 px-3 py-2 rounded-md hover:bg-gray-100">🧾 Transacciones</a></li>
+              <li>
+                <Link :href="route('transactionsIndex')"
+                  class="flex items-center gap-2 px-3 py-2 rounded-md hover:bg-gray-100"
+                >
+                  💸 Transacciones
+                </Link>
+              </li>
               <li><a class="flex items-center gap-2 px-3 py-2 rounded-md hover:bg-gray-100">🏦 Cuentas &amp; Tarjetas</a></li>
               <li><a class="flex items-center gap-2 px-3 py-2 rounded-md hover:bg-gray-100">📊 Reportes</a></li>
             </ul>
