@@ -57,3 +57,27 @@ If you discover a security vulnerability within Laravel, please send an e-mail t
 ## License
 
 The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+
+
+# 🔄 Actualizar rama de desarrollo
+git checkout develop
+git pull origin develop
+# 🌿 Crear nueva rama de funcionalidad
+git checkout -b feature/nueva-funcion
+# 💾 Agregar cambios y hacer commits
+git add .
+git commit -m "feat(nombre-modulo): descripcion breve del cambio"
+# 🔀 Fusionar la nueva función en develop
+git checkout develop
+git merge feature/nueva-funcion
+git push origin develop
+# 🚀 Preparar versión estable
+git checkout main
+git merge develop
+# 🏷️ Crear nueva versión (cambiar el número según corresponda)
+git tag -a v1.1.0 -m "Add nueva funcionalidad"
+git push origin main --tags
+# 🧹 Limpiar cachés y optimizar para producción
+php artisan optimize
+php artisan migrate --force
+npm run build
