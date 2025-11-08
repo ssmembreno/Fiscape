@@ -1,6 +1,7 @@
 <script setup>
 import { Head, Link, useForm } from '@inertiajs/vue3'
 import DashboardLayout from '@/Layouts/DashboardLayout.vue'
+import UserMenu from '@/components/UserMenu.vue'
 
 // Props: categorías y transacción actual
 const props = defineProps({
@@ -11,7 +12,7 @@ const props = defineProps({
 // Inicializamos el formulario con los valores actuales
 const form = useForm({
   category_id: props.transaction.category_id || '',
-  type: String(props.transaction.type) || '1', // tipo como string
+  type: String(props.transaction.type) || '1',
   amount: props.transaction.amount || '',
   date: props.transaction.date || '',
   description: props.transaction.description || '',
@@ -47,6 +48,9 @@ const submit = () => {
             <li class="text-gray-700 font-medium">Editar Transacción</li>
           </ol>
         </nav>
+          <div class="ml-auto">
+            <UserMenu />
+          </div>
       </div>
     </template>
 

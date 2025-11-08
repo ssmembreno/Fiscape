@@ -2,6 +2,7 @@
 import { Head, Link, useForm } from '@inertiajs/vue3'
 import DashboardLayout from '@/Layouts/DashboardLayout.vue'
 import Alerts from '@/components/Alerts.vue'
+import UserMenu from '@/components/UserMenu.vue'
 
 const props = defineProps({
   categories: Array,
@@ -41,6 +42,9 @@ function submit() {
             <li class="text-gray-700 font-medium">Nueva Transacción</li>
           </ol>
         </nav>
+           <div class="ml-auto">
+              <UserMenu />
+            </div>
       </div>
     </template>
 

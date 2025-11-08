@@ -5,6 +5,7 @@ import { Pencil, Trash2 } from 'lucide-vue-next'
 import ConfirmModal from '@/components/ConfirmModal.vue'
 import { ref } from 'vue'
 import Alerts from '@/components/Alerts.vue'
+import UserMenu from '@/components/UserMenu.vue'
 
 const props = defineProps({
   transactions: Array,
@@ -39,27 +40,21 @@ const deleteTransaction = () => {
   <DashboardLayout>
     <!--Header -->
     <template #header>
-      <div class="flex items-center justify-between w-full">
-        <nav class="text-sm text-gray-500">
-          <ol class="flex items-center gap-1">
-            <li>
-              <Link :href="route('dashboard')" class="hover:text-indigo-600">Inicio</Link>
-            </li>
-            <li>/</li>
-            <li class="text-gray-700 font-medium">Transacciones</li>
-          </ol>
-        </nav>
-
-        <button
-          class="h-9 w-9 rounded-full bg-gray-200 flex items-center justify-center hover:ring-2 hover:ring-indigo-500 transition"
-        >
-          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-600" fill="none"
-               viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                  d="M5.121 17.804A9 9 0 1118.879 6.196a9 9 0 01-13.758 11.608zM12 14a4 4 0 100-8 4 4 0 000 8z" />
-          </svg>
-        </button>
-      </div>
+        <div class="flex items-center justify-between w-full">
+          <!-- Breadcrumb -->
+          <nav class="text-sm text-gray-500">
+            <ol class="flex items-center gap-1">
+              <li>
+                <Link :href="route('dashboard')" class="hover:text-indigo-600">Inicio</Link>
+              </li>
+              <li>/</li>
+              <li class="text-gray-700 font-medium">Transacciones</li>
+            </ol>
+          </nav>
+            <div class="ml-auto">
+                <UserMenu />
+            </div>
+        </div>
     </template>
 
     <!-- Barra de herramientas -->
@@ -155,7 +150,7 @@ const deleteTransaction = () => {
               </span>
             </td>
             <td class="px-4 py-2">{{ t.category?.name || '-' }}</td>
-            <td class="px-4 py-2 font-semibold">{{ parseFloat(t.amount).toFixed(2) }} €</td>
+            <td class="px-4 py-2 font-semibold">{{ (t.type === 2 ? '-' : '') + parseFloat(t.amount).toFixed(2) + '€' }}</td>
             <td class="px-4 py-2 text-gray-600">{{ t.description || '-' }}</td>
 
             <td class="px-2 py-2 text-right flex justify-end gap-3">
