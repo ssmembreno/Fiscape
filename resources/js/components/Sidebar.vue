@@ -51,9 +51,11 @@ const isOpen = ref(false);
             </Link>
           </li>
           <li>
-            <a class="flex items-center gap-2 px-3 py-2 rounded-md hover:bg-gray-100">
-              📊 Reportes
-            </a>
+            <Link :href="route('accountsIndex')" 
+                class="flex items-center gap-2 px-3 py-2 rounded-md hover:bg-gray-100"
+                :class="{ 'bg-gray-100 font-medium': route().current('accounts.*') }">
+              🏦 Cuentas
+            </ Link>
           </li>
         </ul>
       </div>
