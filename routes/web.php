@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Accounts\AccountsController;
 use App\Http\Controllers\Categories\CategoriesController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Foundation\Application;
@@ -43,6 +44,15 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/categories/{categories}/edit' , [CategoriesController::class , 'edit'])->name('categoriesEdit');
     Route::put('/categories/{categories}' , [CategoriesController::class , 'update'])->name('categoriesUpdate');
     Route::delete('/categories/{categories}' , [CategoriesController::class , 'destroy'])->name('categoriesDestroy');
+
+    // Accounts
+    Route::get('/accounts', [AccountsController::class, 'index'])->name('accountsIndex');
+    Route::get('/accounts/create', [AccountsController::class, 'create'])->name('accountsCreate');
+    Route::post('/accounts' , [AccountsController::class, 'store'])->name('accountsStore');
+    Route::get('/accounts/{accounts}/edit', [AccountsController::class, 'edit'])->name('accountsEdit');
+    Route::put('/accounts/{accounts}', [AccountsController::class, 'update'])->name('accountsUpdate');
+    Route::delete('Accounts/{accounts}', [AccountsController::class, 'destroy'])->name('accountsDestroy');
+
 });
 
 require __DIR__.'/auth.php';
