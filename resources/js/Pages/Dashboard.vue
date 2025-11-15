@@ -43,7 +43,7 @@ function pct(used, limit) {
     <!-- Layout principal: sidebar + contenido -->
     <div class="grid grid-cols-12 gap-0">
       <!-- Sidebar -->
-      <aside class="col-span-12 md:col-span-3 lg:col-span-2 border-r bg-white">
+      <aside class="bg-[#EAEFEF] col-span-12 md:col-span-3 lg:col-span-2 border-r bg-white">
         <div class="h-16 flex items-center px-4 border-b">
           <div class="inline-flex items-center gap-2">
             <div class="h-8 w-8 rounded-xl bg-indigo-600"></div>

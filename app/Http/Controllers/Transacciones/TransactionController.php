@@ -10,13 +10,15 @@ use Inertia\Inertia;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\Transactions\TransactionRequest;
 use Psy\Readline\Transient;
+use App\Models\Accounts;
+use Illuminate\Support\Facades\Log;
 
 class TransactionController extends Controller{
     
     public function index(){
         $transactions = Transactions::where('user_id', Auth::id())
-            ->with('category')
-            ->orderBy('date', 'desc')
+            ->with(['category', 'account'])
+            ->orderBy('date', 'asc')
             ->get();
 
         $categories = Categories::whereNull('user_id')
@@ -33,8 +35,11 @@ class TransactionController extends Controller{
     public function create(){
         $categories = Categories::get();
 
+        $accountsUserCreate = Accounts::get();
+
         return Inertia::render('Transactions/Create', [
-            'categories' => $categories
+            'categories' => $categories,
+            'accountsUserCreate' => $accountsUserCreate
         ]);
     }
 
@@ -44,7 +49,19 @@ class TransactionController extends Controller{
 
         $validated['user_id'] = Auth::id();
 
-        Transactions::create($validated);
+        $transaction = Transactions::create($validated);
+
+        $account = Accounts::find($validated['account_id']);
+
+        //Actulizamos el balance segun si es ingreso o gasto
+        if($account){
+            if($transaction->type == Transactions::TYPE_INGRESO){
+                $account->balance += $transaction->amount;
+            }elseif($transaction->type == Transactions::TYPE_GASTO){
+                $account->balance -= $transaction->amount;
+            }
+        $account->save();    
+        }
 
         return redirect()->route('transactionsIndex')->with('success', 'Transacción agregada correctamente.');
     }
@@ -77,7 +94,24 @@ class TransactionController extends Controller{
     }
 
 
-    public function destroy(Transactions $transaction){
+    public function destroy(Transactions $transaction)
+    {
+        $account = Accounts::find($transaction->account_id);
+
+        if ($account) {
+            // Revertir el efecto de la transacción
+            if ($transaction->type == Transactions::TYPE_INGRESO) {
+                $account->balance -= $transaction->amount;
+            } elseif ($transaction->type == Transactions::TYPE_GASTO) {
+                $account->balance += $transaction->amount;
+            }
+
+            $account->save();
+        }
+
         $transaction->delete();
+
+        return redirect()->route('transactionsIndex')->with('success', 'Transacción eliminada y balance revertido.');
     }
+
 }

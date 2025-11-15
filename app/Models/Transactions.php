@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use App\Models\User;
 use App\Models\Categories;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use App\Models\Accounts;
 
 class Transactions extends Model
 {
@@ -22,7 +23,8 @@ class Transactions extends Model
         'type', // ingreso o gasto
         'amount',
         'date',
-        'description'
+        'description',
+        'account_id'
     ];
 
     public function user()
@@ -36,6 +38,10 @@ class Transactions extends Model
     public function category()
     {
         return $this->belongsTo(Categories::class);
+    }
+
+    public function account(){
+        return $this->belongsTo(Accounts::class, 'account_id');
     }
 
 }

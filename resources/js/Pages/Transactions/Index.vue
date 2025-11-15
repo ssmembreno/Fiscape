@@ -65,7 +65,7 @@ const deleteTransaction = () => {
           <input
             type="text"
             placeholder="Buscar transacciones..."
-            class="w-full pl-10 pr-4 py-2 border rounded-md text-sm focus:ring-2 focus:ring-[#84cc16] focus:border-[#84cc16] outline-none"
+            class="w-full pl-10 pr-4 py-2 border rounded-md text-sm focus:ring-2 focus:ring-[#5046e5] focus:border-[#5046e5] outline-none"
           />
           <svg xmlns="http://www.w3.org/2000/svg" class="absolute left-3 top-2.5 h-4 w-4 text-gray-400"
                fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -108,7 +108,7 @@ const deleteTransaction = () => {
         <Link
           :href="route('transactionsCreate')"
           class="inline-flex items-center gap-1 px-2 py-1.5 text-sm font-medium text-white rounded-md shadow hover:opacity-90 transition"
-          style="background-color: #84cc16;"
+          style="background-color: #5046e5;"
         >
           <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none"
                viewBox="0 0 24 24" stroke="currentColor">
@@ -129,6 +129,7 @@ const deleteTransaction = () => {
             <th class="px-4 py-3">Tipo</th>
             <th class="px-4 py-3">Categoría</th>
             <th class="px-4 py-3">Monto</th>
+            <th class="px-4 py-3">Cuenta / Metodo Pago</th>
             <th class="px-4 py-3">Descripción</th>
             <th class="px-4 py-3 text-right">Acciones</th>
           </tr>
@@ -150,9 +151,13 @@ const deleteTransaction = () => {
               </span>
             </td>
             <td class="px-4 py-2">{{ t.category?.name || '-' }}</td>
-            <td class="px-4 py-2 font-semibold">{{ (t.type === 2 ? '-' : '') + parseFloat(t.amount).toFixed(2) + '€' }}</td>
+            <td class="px-4 py-2 font-semibold">
+              <span :class="t.type === 1 ? 'text-green-600' : 'text-red-600'">
+                {{ (t.type === 2 ? '-' : '+') + parseFloat(t.amount).toFixed(2) + ' €' }}
+              </span>
+            </td>
+            <td class="px-4 py-2">{{ t.account?.name || '-' }}</td>
             <td class="px-4 py-2 text-gray-600">{{ t.description || '-' }}</td>
-
             <td class="px-2 py-2 text-right flex justify-end gap-3">
               <!-- Editar -->
               <Link

@@ -22,6 +22,7 @@ class TransactionRequest extends FormRequest
             'amount' => 'required|numeric|min:0',
             'date' => 'required|date',
             'description' => 'nullable|string',
+            'account_id' => 'required'
         ];
     }
 
@@ -33,6 +34,7 @@ class TransactionRequest extends FormRequest
             'amount.required' => 'El monto es obligatorio.',
             'amount.numeric' => 'El monto debe ser un número.',
             'date.required' => 'La fecha es obligatoria.',
+            'account_id' => 'La cuenta es obligatoria',
         ];
     }
 }

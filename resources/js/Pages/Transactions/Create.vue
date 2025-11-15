@@ -6,6 +6,7 @@ import UserMenu from '@/components/UserMenu.vue'
 
 const props = defineProps({
   categories: Array,
+  accountsUserCreate: Array
 })
 
 // Inicializamos el formulario
@@ -15,6 +16,7 @@ const form = useForm({
   amount: '',
   date: '',
   description: '',
+  account_id: '',
 })
 
 function submit() {
@@ -47,6 +49,19 @@ function submit() {
             </div>
       </div>
     </template>
+    <!-- Si no hay cuentas creadas -->
+    <div
+      v-if="props.accountsUserCreate.length === 0"
+      class="p-4 mb-6 text-sm text-yellow-800 bg-yellow-50 border border-yellow-200 rounded-md"
+    >
+      ⚠️ Primero debes crear una cuenta para poder registrar una transacción.
+      <Link
+        :href="route('accountsCreate')"
+        class="ml-2 text-indigo-600 font-medium hover:underline"
+      >
+        Crear cuenta
+      </Link>
+    </div>
 
     <div class="max-w-3xl mx-auto bg-white rounded-xl shadow-sm p-6 mt-6">
       <h2 class="text-xl font-semibold text-gray-800 mb-6">Registrar Transacción</h2>
@@ -72,6 +87,18 @@ function submit() {
             {{ form.errors.category_id }}
           </div>
         </div>
+
+        <!-- Cuentas del Usuario -->
+         <div>
+          <label class="block text-sm font-medium text-gray-700 mb-1">Cuentas</label>
+          <select v-model="form.account_id" class="w-full border rounded-md px-3 py-2 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 text-sm">
+            <option value="">Seleccionar Cuenta</option>
+            <option v-for="acc in props.accountsUserCreate" :key="acc.id" :value="acc.id">{{ acc.name }}</option>
+          </select>
+              <div v-if="form.errors.account_id" class="text-red-500 text-sm mt-1">
+            {{ form.errors.account_id}}
+          </div>
+         </div>
 
         <!-- Tipo -->
         <div>
