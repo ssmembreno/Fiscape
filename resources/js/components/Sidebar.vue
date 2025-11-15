@@ -8,7 +8,7 @@ const isOpen = ref(false);
 <template>
   <!-- Sidebar -->
   <aside
-    class="bg-white border-r shadow-sm h-full min-h-screen flex flex-col fixed lg:static top-0 left-0 z-40 w-64 lg:w-auto transform lg:translate-x-0 transition-transform duration-300"
+    class="bg-[#EAEFEF] border-r shadow-sm h-full min-h-screen flex flex-col fixed lg:static top-0 left-0 z-40 w-64 lg:w-auto transform lg:translate-x-0 transition-transform duration-300"
     :class="{ '-translate-x-full': !isOpen }"
   >
     <!-- Logo -->
@@ -54,7 +54,7 @@ const isOpen = ref(false);
             <Link :href="route('accountsIndex')" 
                 class="flex items-center gap-2 px-3 py-2 rounded-md hover:bg-gray-100"
                 :class="{ 'bg-gray-100 font-medium': route().current('accounts.*') }">
-              🏦 Cuentas
+              🏦 Cuentas & Tarjetas
             </ Link>
           </li>
         </ul>
