@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Accounts\AccountsController;
 use App\Http\Controllers\Categories\CategoriesController;
+use App\Http\Controllers\Dashboard\DashboardController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
@@ -17,10 +18,6 @@ Route::get('/', function () {
     ]);
 });
 
-Route::get('/dashboard', function () {
-    return Inertia::render('Dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
-
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
@@ -28,6 +25,7 @@ Route::middleware('auth')->group(function () {
 });
 
 Route::middleware(['auth', 'verified'])->group(function () {
+    Route::get('/dashboard' , [DashboardController::class, 'index'])->name('dashboard');
     // Transacciones
     Route::get('/transactions', [TransactionController::class, 'index'])->name('transactionsIndex');
     Route::get('/transactions/create', [TransactionController::class, 'create'])->name('transactionsCreate');

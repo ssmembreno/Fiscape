@@ -51,7 +51,7 @@ const submit = () => form.post(route('accountsStore'));
           <input
             v-model="form.name"
             type="text"
-            placeholder="Ej: Cuenta BBVA, PayPal, Efectivo"
+            placeholder="Ej: Nómina BBVA, PayPal, Efectivo"
             class="w-full border rounded-lg px-3 py-2.5 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 text-sm"
           />
           <div v-if="form.errors.name" class="text-red-500 text-sm mt-1">{{ form.errors.name }}</div>
