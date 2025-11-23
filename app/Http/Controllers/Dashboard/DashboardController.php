@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Transactions;
 use App\Models\Accounts;
+use App\Models\Budgets;
 use Illuminate\Support\Facades\Auth;
 
 class DashboardController extends Controller
@@ -26,12 +27,17 @@ class DashboardController extends Controller
             ->take(5)
             ->get();
 
+        $budgets = Budgets::where('user_id', $userId)
+            ->with('category')
+            ->get();
+
         return inertia('Dashboard/Index', [
             'balanceActual' => (float)$balance,
             'totalIngresos' => (float)$totalIngresos,
             'totalGastos' => (float)$totalGastos,
             'ahorro' => (float) $ahorro,
             'transaccionesRecientes' => $transaccionesRecientes,
+            'budgets' => $budgets,
         ]);
     }
 }
