@@ -10,6 +10,7 @@ const props = defineProps({
   totalGastos: Number,
   ahorro: Number,
   transaccionesRecientes: Array,
+  budgets: Array,
 })
 
 // ✅ Datos estáticos (por ahora)
@@ -18,13 +19,6 @@ const upcomingBills = [
   { due: '12 Nov', name: 'Internet', amount: 34.9, status: 'Pendiente' },
   { due: '15 Nov', name: 'Alquiler', amount: 450.0, status: 'Programado' },
   { due: '20 Nov', name: 'Móvil', amount: 10.0, status: 'Pendiente' },
-]
-
-const budgets = [
-  { cat: 'Alimentación', used: 180, limit: 250 },
-  { cat: 'Transporte', used: 90, limit: 120 },
-  { cat: 'Ocio', used: 75, limit: 150 },
-  { cat: 'Suscripciones', used: 25, limit: 40 },
 ]
 
 // ✅ Función helper
@@ -141,15 +135,15 @@ function pct(used, limit) {
             <div class="bg-white rounded-xl border p-4 xl:col-span-2">
               <h4 class="font-semibold mb-2">Presupuestos</h4>
               <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <div v-for="b in budgets" :key="b.cat" class="p-3 border rounded-lg">
-                  <p class="text-sm text-gray-600">{{ b.cat }}</p>
+                <div v-for="b in budgets" :key="b.id" class="p-3 border rounded-lg">
+                  <p class="text-sm text-gray-600">{{ b.category.name }}</p>
                   <div class="mt-2 w-full bg-gray-100 h-2 rounded">
                     <div
                       class="h-2 bg-indigo-600 rounded"
-                      :style="`width:${pct(b.used, b.limit)}%`"
+                      :style="`width:${pct(b.amount_spent, b.amount_limit)}%`"
                     ></div>
                   </div>
-                  <p class="mt-1 text-xs text-gray-500">{{ pct(b.used, b.limit) }}% usado</p>
+                  <p class="mt-1 text-xs text-gray-500">{{ pct(b.amount_spent, b.amount_limit) }}% usado</p>
                 </div>
               </div>
             </div>
