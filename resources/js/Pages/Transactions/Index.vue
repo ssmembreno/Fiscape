@@ -150,14 +150,14 @@ const deleteTransaction = () => {
                 {{ t.type === 1 ? 'Ingreso' : 'Gasto' }}
               </span>
             </td>
-            <td class="px-4 py-2">{{ t.category?.name || '-' }}</td>
+            <td class="px-4 py-2">{{ t.category?.name }}</td>
             <td class="px-4 py-2 font-semibold">
               <span :class="t.type === 1 ? 'text-green-600' : 'text-red-600'">
                 {{ (t.type === 2 ? '-' : '+') + parseFloat(t.amount).toFixed(2) + ' €' }}
               </span>
             </td>
-            <td class="px-4 py-2">{{ t.account?.name || '-' }}</td>
-            <td class="px-4 py-2 text-gray-600">{{ t.description || '-' }}</td>
+            <td class="px-4 py-2">{{ t.account?.name  }}</td>
+            <td class="px-4 py-2 text-gray-600">{{ t.description }}</td>
             <td class="px-2 py-2 text-right flex justify-end gap-3">
               <!-- Editar -->
               <Link

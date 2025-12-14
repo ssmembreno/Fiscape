@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Accounts\AccountsController;
+use App\Http\Controllers\Budgets\BudgetsController;
 use App\Http\Controllers\Categories\CategoriesController;
 use App\Http\Controllers\Dashboard\DashboardController;
 use App\Http\Controllers\ProfileController;
@@ -8,6 +9,8 @@ use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use App\Http\Controllers\Transacciones\TransactionController;
+use App\Http\Controllers\UpcomingPay\UpcomingPayController;
+
 
 Route::get('/', function () {
     return Inertia::render('Welcome', [
@@ -51,6 +54,21 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::put('/accounts/{accounts}', [AccountsController::class, 'update'])->name('accountsUpdate');
     Route::delete('Accounts/{accounts}', [AccountsController::class, 'destroy'])->name('accountsDestroy');
 
+    //Budgets
+    Route::get('/budgets', [BudgetsController::class, 'index'])->name('budgetsIndex');
+    Route::get('/budgets/create',[BudgetsController::class , 'create'])->name('budgetsCreate');
+    Route::post('/budgets' , [BudgetsController::class , 'store'])->name('budgetsStore');
+    Route::get('/budgets/{budget}/edit' , [BudgetsController::class , 'edit'])->name('budgetsEdit');
+    Route::put('/budgets/{budget}' , [BudgetsController::class , 'update'])->name('budgetsUpdate');
+    Route::delete('/budgets/{budget}' , [BudgetsController::class , 'destroy'])->name('budgetsDestroy');
+    // Reiniciar budgets
+    Route::get('/budgets/reset/{budget}' , [BudgetsController::class , 'reset'])->name('budgetsReset');
+    Route::get('/budgets/reset-all' , [BudgetsController::class , 'resetAll'])->name('budgetsResetAll');
+    
+    // Upcoming bills
+    Route::get('/upcoming-pays', [UpcomingPayController::class, 'index'])->name('upcomingPaysIndex');
+    Route::get('/upcoming-pays/create', [UpcomingPayController::class, 'create'])->name('upcomingPaysCreate');
+    Route::post('/upcoming-pays', [UpcomingPayController::class, 'store'])->name('upcomingPaysStore');
 });
 
 require __DIR__.'/auth.php';

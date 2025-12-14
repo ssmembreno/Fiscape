@@ -57,6 +57,20 @@ const isOpen = ref(false);
               🏦 Cuentas & Tarjetas
             </ Link>
           </li>
+          <li>
+            <Link :href="route('budgetsIndex')" 
+                class="flex items-center gap-2 px-3 py-2 rounded-md hover:bg-gray-100"
+                :class="{ 'bg-gray-100 font-medium': route().current('budgets.*') }">
+              🧾 Presupuestos
+            </ Link>
+          </li>
+          <li>
+            <Link :href="route('upcomingPaysIndex')" 
+                class="flex items-center gap-2 px-3 py-2 rounded-md hover:bg-gray-100"
+                :class="{ 'bg-gray-100 font-medium': route().current('upcomingPays.*') }">
+                Proximos pagos
+            </ Link>
+          </li>
         </ul>
       </div>
 

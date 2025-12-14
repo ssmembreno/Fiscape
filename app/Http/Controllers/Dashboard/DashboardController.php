@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Transactions;
 use App\Models\Accounts;
+use App\Models\Budgets;
+use App\Models\UpcomingPay;
 use Illuminate\Support\Facades\Auth;
 
 class DashboardController extends Controller
@@ -17,6 +19,7 @@ class DashboardController extends Controller
         $balance = Accounts::where('user_id' , $userId)->sum('balance');
         $totalIngresos = Transactions::where('user_id', $userId)->where('type', 1)->sum('amount');
         $totalGastos = Transactions::where('user_id', $userId)->where('type', 2)->sum('amount');
+        $upcomingPays = UpcomingPay::where('user_id', $userId)->get();
 
         $ahorro = $totalIngresos - $totalGastos;
 
@@ -26,12 +29,18 @@ class DashboardController extends Controller
             ->take(5)
             ->get();
 
+        $budgets = Budgets::where('user_id', $userId)
+            ->with('category')
+            ->get();
+
         return inertia('Dashboard/Index', [
             'balanceActual' => (float)$balance,
             'totalIngresos' => (float)$totalIngresos,
             'totalGastos' => (float)$totalGastos,
             'ahorro' => (float) $ahorro,
+            'upcomingPays' => $upcomingPays,
             'transaccionesRecientes' => $transaccionesRecientes,
+            'budgets' => $budgets,
         ]);
     }
 }
