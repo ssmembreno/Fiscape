@@ -81,3 +81,13 @@ git push origin main --tags
 php artisan optimize
 php artisan migrate --force
 npm run build
+
+<!-- COmando para lanzar los proximos pagos 
+php artisan process-upcoming-pays 
+
+🔁 En producción (muy importante)
+
+Debes tener UN solo cron en el servidor:
+
+* * * * * php /ruta/a/tu/proyecto/artisan schedule:run >> /dev/null 2>&1
+-->

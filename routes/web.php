@@ -9,6 +9,8 @@ use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use App\Http\Controllers\Transacciones\TransactionController;
+use App\Http\Controllers\UpcomingPay\UpcomingPayController;
+
 
 Route::get('/', function () {
     return Inertia::render('Welcome', [
@@ -62,6 +64,11 @@ Route::middleware(['auth', 'verified'])->group(function () {
     // Reiniciar budgets
     Route::get('/budgets/reset/{budget}' , [BudgetsController::class , 'reset'])->name('budgetsReset');
     Route::get('/budgets/reset-all' , [BudgetsController::class , 'resetAll'])->name('budgetsResetAll');
+    
+    // Upcoming bills
+    Route::get('/upcoming-pays', [UpcomingPayController::class, 'index'])->name('upcomingPaysIndex');
+    Route::get('/upcoming-pays/create', [UpcomingPayController::class, 'create'])->name('upcomingPaysCreate');
+    Route::post('/upcoming-pays', [UpcomingPayController::class, 'store'])->name('upcomingPaysStore');
 });
 
 require __DIR__.'/auth.php';
