@@ -32,7 +32,7 @@ const props = defineProps({
                 </div>
             </div>
         </template>
-
+<!-- tt -->
         <!-- Barra de herramientas -->
         <div class="mt-6 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
             <div class="flex items-center gap-2 w-full sm:w-auto">
